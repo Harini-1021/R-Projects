@@ -3,9 +3,6 @@ install.packages(c("ROSE", "cluster", "factoextra", "dbscan", "dplyr",
                    "e1071", "rpart", "geosphere", "mice"))
 
 library(ROSE)
-library(cluster)
-library(factoextra)
-library(dbscan)
 library(dplyr)
 library(ggplot2)
 library(lubridate)
@@ -98,9 +95,6 @@ df_imputed <- df_imputed %>%
 # Get descriptive statistics:
 summary(df_imputed)
 
-
-
-
 # Perform ROSE sampling to balance the target variable (Car_Cancellation)
 df_balanced <- ROSE(Car_Cancellation ~ ., 
                     data = df_imputed, 
@@ -180,7 +174,7 @@ ggplot(res, aes(x = factor(package_id), y = Count, fill = factor(Car_Cancellatio
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-
+#2. 
 chisq.test(table(df_imputed$package_id, df_imputed$Car_Cancellation))
 
 
@@ -241,73 +235,6 @@ nb_cm <- confusionMatrix(nb_pred, testData$Car_Cancellation)
 print(nb_cm)
 
 
-
-# ---- 4. Support Vector Machine (SVM) ----
-svm_model <- svm(Car_Cancellation ~ mobile_site_booking + online_booking, 
-                 data = trainData, kernel = "radial")
-svm_pred <- predict(svm_model, testData)
-svm_cm <- confusionMatrix(svm_pred, testData$Car_Cancellation)
-print(svm_cm)
-
-
-df_imputed$travel_type_id <- as.numeric(df_imputed$travel_type_id)
-df_imputed$Car_Cancellation <- as.numeric(df_imputed$Car_Cancellation)
-df_imputed$package_id <- as.numeric(df_imputed$package_id)
-# Scale the data (standardization)
-df_scaled <- scale(df_imputed)
-
-# ---- 1. Elbow Method to Find Optimal Clusters for K-Means ----
-set.seed(123)
-fviz_nbclust(df_scaled, kmeans, method = "wss") + 
-  ggtitle("Elbow Method for Optimal Clusters")
-
-
-
-
-
-# ---- K-Means Clustering ----
-set.seed(123)
-kmeans_model <- kmeans(df_scaled, centers = 2, nstart = 25)  # 2 clusters
-df_imputed$kmeans_cluster <- as.factor(kmeans_model$cluster)
-
-# Plot K-Means Clustering
-fviz_cluster(kmeans_model, data = df_scaled, geom = "point", ellipse = TRUE) +
-  ggtitle("K-Means Clustering")
-
-
-silhouette_kmeans <- silhouette(kmeans_model$cluster, dist(df_scaled))
-mean(silhouette_kmeans[, 3])  # Average silhouette width
-
-
-set.seed(123)
-# ---- Hierarchical Clustering ----
-hc_model <- hclust(dist(df_scaled), method = "ward.D2")
-df_imputed$hclust_cluster <- cutree(hc_model, k = 2)  # Cut tree into 2 clusters
-
-# Plot Dendrogram
-plot(hc_model, labels = FALSE, main = "Hierarchical Clustering Dendrogram")
-rect.hclust(hc_model, k = 3, border = "red")  # Add rectangles for clusters
-
-
-
-# Evaluate goodness of fit - Silhouette Score
-silhouette_hclust <- silhouette(df_imputed$hclust_cluster, dist(df_scaled))
-mean(silhouette_hclust[, 3])  # Average silhouette width
-
-set.seed(123)
-# ----  DBSCAN Clustering ----
-dbscan_model <- dbscan(df_scaled, eps = 1.5, minPts = 5)  
-
-df_imputed$dbscan_cluster <- as.factor(dbscan_model$cluster)
-
-# Plot DBSCAN clusters
-fviz_cluster(dbscan_model, df_scaled, geom = "point") +
-  ggtitle("DBSCAN Clustering")
-
-
-# Evaluate goodness of fit for DBSCAN using Silhouette Score
-silhouette_dbscan <- silhouette(dbscan_model$cluster, dist(df_scaled))
-mean(silhouette_dbscan[, 3])  # Average silhouette width
 
 
 
