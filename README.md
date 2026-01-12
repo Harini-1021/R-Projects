@@ -85,6 +85,7 @@ Random Forest is chosen because it can handle mixed data types of categorical an
 Chi-squared tests identify significant relationship between categorical variables and target variable. 
 
 **Model fitting, Validation and Test Accuracy** 
+
 **Objective 1:  Predicting car_cancellation based on all features in the dataset.**
 To predict car cancellations, four different machine learning models were implemented: Random Forest, Decision Tree, Naïve Bayes, and Support Vector Machine (SVM). The models were then trained using the training dataset and evaluated on the test dataset using a confusion matrix and performance metrics such as accuracy, sensitivity, specificity.
 Random Forest Classifier 
