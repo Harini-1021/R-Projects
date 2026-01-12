@@ -1,4 +1,4 @@
-install.packages(c("ROSE", "cluster", "factoextra", "dbscan", "dplyr", 
+install.packages(c("ROSE", "dplyr", 
                    "ggplot2", "lubridate", "VIM", "caret", "randomForest", 
                    "e1071", "rpart", "geosphere", "mice"))
 
@@ -234,6 +234,7 @@ nb_model <- klaR::NaiveBayes(Car_Cancellation ~ mobile_site_booking +
 nb_pred <- predict(nb_model, testData)$class
 nb_cm <- confusionMatrix(nb_pred, testData$Car_Cancellation)
 print(nb_cm)
+
 
 
 
