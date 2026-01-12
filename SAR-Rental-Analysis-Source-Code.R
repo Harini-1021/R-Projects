@@ -109,6 +109,7 @@ trainIndex <- createDataPartition(df_balanced$Car_Cancellation,
 trainData <- df_balanced[trainIndex, ]
 testData <- df_balanced[-trainIndex, ]
 
+#Objective 1:Predicting Cancellation rates based on all features in the dataset 
 # ---- 1. Random Forest Classifier ----
 rf_model <- randomForest(Car_Cancellation ~ ., 
                          data = trainData)
@@ -174,7 +175,7 @@ ggplot(res, aes(x = factor(package_id), y = Count, fill = factor(Car_Cancellatio
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-#2. 
+#Objective 2: Is there any relationship of travel type and package ID with the car cancellation
 chisq.test(table(df_imputed$package_id, df_imputed$Car_Cancellation))
 
 
@@ -183,7 +184,7 @@ chisq.test(table(df_imputed$travel_type_id,
 
 
 
-#3. Can the status of online booking and mobile site booking be used to predict car cancellation. Is there any relationship of these variable with the car cancellation.
+#Objective 3: Can the status of online booking and mobile site booking be used to predict car cancellation. Is there any relationship of these variable with the car cancellation.
 res <- df_imputed %>%
   group_by(online_booking, Car_Cancellation) %>%
   summarise(Count=n()) 
@@ -233,6 +234,7 @@ nb_model <- klaR::NaiveBayes(Car_Cancellation ~ mobile_site_booking +
 nb_pred <- predict(nb_model, testData)$class
 nb_cm <- confusionMatrix(nb_pred, testData$Car_Cancellation)
 print(nb_cm)
+
 
 
 
