@@ -27,8 +27,6 @@ Identifying relationship between travel type and package by using chi-squared te
 From business perspective, it helps to distribute vehicles  based on travel type patterns. Identify which packages are prone to cancellations and necessary steps can be implemented for those packages. 
 3.Impact of digital bookings 
 Booking platform insights gives an idea of how customer likes to book a ride and by developing online platform specific strategies the number of cancellations can be reduced. 
-4.  Clustering the customers by their behavior patterns
-For businesses customer behavior is the most imperative thing for smooth operational efficiency. By grouping customers into segments based on their characteristics, better allocation of resources can be achieved and can potentially contribute to why rides were getting cancelled. 
 
 **Exploratory Data Analysis**
 
@@ -82,10 +80,9 @@ Once the dataset is balanced, it is split into a training set (70%) and a testin
 The createDataPartition function ensures that the split is correct, which means both training and testing sets have same proportion of class labels . The split is a mandatory step in classification tasks as uneven split of classes will lead to biasedness . The set.seed(123) ensures reproducibility so that every time the code is run, the same partitioning is obtained. 
 
 **Model  Selection** 
-Based on the business goals, Random Forest, Decision Tree, Naïve Bayes, SVM and statistical tests like Chi-squared test , K-Means Clustering, DBScan, Hierarchical Clustering are  selected. 
+Based on the business goals, Random Forest, Decision Tree, Naïve Bayes, SVM and statistical tests like Chi-squared test are  selected. 
 Random Forest is chosen because it can handle mixed data types of categorical and numerical variables, Decision Tree can easily explain the transparency of variables , Naïve Bayes can handle large datasets , SVM models is selected for predicting complex patterns. 
 Chi-squared tests identify significant relationship between categorical variables and target variable. 
-Clustering models like K-Means clustering will provide and efficient way to cluster the groups based on their similar booking patterns. DBSCAN can handle geographical clustering and deals with identifying outliers. 
 
 **Model fitting, Validation and Test Accuracy** 
 **Objective 1:  Predicting car_cancellation based on all features in the dataset.**
@@ -142,37 +139,18 @@ The result of a chi-squared value of 215.44 with a p-value of less than 2.2e-16,
 Regarding mobile site bookings, 8,896 bookings that were not made through the mobile site resulted in no cancellation, while 680 were canceled. On the other hand, for bookings made through the mobile site, 361 were not canceled, and 63 were canceled. 
 **Reports on model performance**
 The Pearson’s Chi-squared test with Yates' continuity correction for mobile site booking and car cancellation yielded a chi-squared value of 34.405 with a p-value of 4.475e-09, suggesting a significant association between mobile site booking and car cancellations. By comparing online bookings and mobile site bookings, customers booking from mobile site bookings also shows likelihood of cancelling the reservations even though online bookings cancellation rate is higher. To sum up, both platforms are associated with cancellation rates.  
-
-**Objective 4 : Group the rentals data based on the car cancellation status using clustering.**
-Clustering is an essential unsupervised learning technique used to group data points with similar characteristics. In this study, three clustering algorithms—K-Means, DBSCAN, and Hierarchical Clustering—are applied to segment the rentals data based on car cancellation status. The primary objective is to understand patterns associated with cancellations and evaluate which clustering method best differentiates between successful and canceled bookings. Three clustering models were employed:
-K-means clustering, Hierarchical clustering and DBSCAN 
-•	K-Means: 0.1222
-•	Hierarchical Clustering: 0.1005
-•	DBSCAN: -0.3561
-**Reports on model performance**
-To evaluate the performance of the clustering algorithms, the Silhouette Score was computed for each model. The Silhouette Score measures how similar an object is to its own cluster compared to other clusters. A higher score indicates better-defined clusters. 
  
-Given that the cancellation variable is binary (Yes/No), the algorithm effectively clustered rentals into these two categories. However, the low score indicates some overlap between the clusters, likely due to underlying factors influencing cancellations that were not fully captured by clustering. 
-
- 
-The dendrogram confirmed the presence of two major clusters, showing the car cancellation status.
- 
-DBSCAN performed poorly due to density-based grouping which is ineffective since car cancellation is categorical and not related to spatial density hence failed to capture meaningful clusters. 
-
-
-
 **Recommendations** 
 From the predictive model results, statistical tests and clustering analysis, the following recommendations can be made to reduce the car cancellations. 
 Online and Mobile Booking Platforms : The analysis concluded that there is a positive relationship between online booking and mobile site bookings and the target variable car cancellations. Improving the customer experience on booking platforms could reduce car cancellations. 
 Travel Type and Package Offerings : Point-to-point rentals have the highest number of cancellations compared to other travel types. Package-based rentals with longer duration (e.g., 12 hours & 120 km) tend to have lower cancellation rates. By changing the offers or incentives on the travel types we could improve other rentals and may reduce cancellation rates. Customers should be encouraged to book longer duration trips based on their preferences with rescheduling options so that booking retention can be improved. 
-Customer Segmentation : From the clusters, customers with a high likelihood of cancellation could be targeted for more retention strategies. 
 
 **Future Work** 
 From the given data, the predictive models considered only limited factors such as booking platforms, package types and travel types. Future research should include customer demographics and historical fatures like ride history, which can be more useful to provide deeper insights into predicting car cancellations. 
 If customer reviews were provided, NLP methods can extract the text and analyze the likelihood of cancellation based on the customer reviews. 
 
 **Conclusion** 
-The study was performed to predict why rides were getting cancelled and predictive modelling is done by analyzing variables travel type, package ID, online booking, and mobile site usage and the distance. Statistical tests show significant relationship between these variables and cancellation rates. Random Forest, Decision Tree, Naïve Bayes, and SVM, were deployed to classify cancellation rates, Furthermore, clustering techniques grouped distinct customer behavior groups, suggesting customer retention strategies. From these insights SAR management can reduce cancellations, enhance customer satisfaction and improve overall efficiency. 
+The study was performed to predict why rides were getting cancelled and predictive modelling is done by analyzing variables travel type, package ID, online booking, and mobile site usage and the distance. Statistical tests show significant relationship between these variables and cancellation rates. Random Forest, Decision Tree, Naïve Bayes, and SVM, were deployed to classify cancellation rates. From these insights SAR management can reduce cancellations, enhance customer satisfaction and improve overall efficiency. 
 
 
 
