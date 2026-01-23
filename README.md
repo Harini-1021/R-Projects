@@ -3,6 +3,7 @@
 **Business Background**
 
 San Francisco Auto Rental Company deals with providing vehicles to customer transportation for short-term or long-term. SAR found a problem in 2013 that the drivers were not showing up for the rides they were scheduled for. The clients were left with no rides even though they booked them in advance.  This problem has been continuing since 2013, and by 2024, SAR found no proper evidence on why the drivers were cancelling the rides despite having an online booking system for scheduling rides beforehand and calling in the driver for communication. 
+
 Furthermore, SAR company reputation and customer satisfaction of booking rides were at stake, as the root cause of the above-mentioned problem has not been addressed. This project will study and deploy machine learning algorithms to find a predictive analytical solution to the problem. 
 
 **Business goal**
@@ -50,9 +51,11 @@ Since the data is missing at random and some data like from_area_id and to_area_
 As for the above reasons, Predictive Mean Matching (PMM) method is implemented through mice package. Instead of using simple methods to replace missing values, PMM selects real values from similar observations in the dataset and preserves the natural structure, distribution and variability of the data. 
 
 **Data Engineering and Transformation** 
-Data Engineering and Transformation are main steps for preparing raw data for analysis and modelling. For the SAR dataset, the below transformations ensure consistency and usability. 
+Data Engineering and Transformation are main steps for preparing raw data for analysis and modelling. For the SAR dataset, the below transformations ensure consistency and usability.
+
 **Removing unnecessary columns**
-columns (row., user_id, vehicle_model_id) does not contribute meaning information to predict the car cancellations. These columns were removed to reduce data redundancy and columns such as from_city_id and to_city_id were removed as they contain more than 50% of data missing.  
+columns (row., user_id, vehicle_model_id) does not contribute meaning information to predict the car cancellations. These columns were removed to reduce data redundancy and columns such as from_city_id and to_city_id were removed as they contain more than 50% of data missing. 
+
 **Encoding Categorical Variables**
 Understanding the data step, categorical columns such as package_id and travel_type_id are converted into factors. 
 Converting Date-Time Columns and Extracting Time Features
@@ -124,8 +127,8 @@ Another Pearson's Chi-squared test was conducted to determine if package ID is s
 •	Chi-squared test results:
 o	X-squared = 24.689, df = 6, p-value = 0.0003898
 The very small p-value confirms a statistically significant relationship between package type and car cancellation. 
- 
 From the graph, Shorter-duration packages (4hrs & 40kms, 8hrs & 80kms) see more cancellations than longer-duration packages. 
+
 **Reports on Model Performance**
 There is a significant relationship between both travel type and package ID with car cancellations. Point-to-point travel and hourly rentals have higher cancellations, indicating they are more susceptible to last-minute changes. From the above tests, shorter-duration bookings can be advised for strict cancellation policies and for long duration rides customers can be offered more offers. 
 
@@ -138,6 +141,7 @@ Reports on Model Performance
 The result of a chi-squared value of 215.44 with a p-value of less than 2.2e-16, indicating a statistically significant relationship between online booking and car cancellation. The significant p-value suggests that the mode of booking does influence the drivers cancelling the rides . A higher proportion of online bookings resulted in cancellations compared to offline bookings 
  
 Regarding mobile site bookings, 8,896 bookings that were not made through the mobile site resulted in no cancellation, while 680 were canceled. On the other hand, for bookings made through the mobile site, 361 were not canceled, and 63 were canceled. 
+
 **Reports on model performance**
 The Pearson’s Chi-squared test with Yates' continuity correction for mobile site booking and car cancellation yielded a chi-squared value of 34.405 with a p-value of 4.475e-09, suggesting a significant association between mobile site booking and car cancellations. By comparing online bookings and mobile site bookings, customers booking from mobile site bookings also shows likelihood of cancelling the reservations even though online bookings cancellation rate is higher. To sum up, both platforms are associated with cancellation rates.  
  
